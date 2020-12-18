@@ -1,0 +1,74 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amssymb}
+\usepackage{enumitem}
+\usepackage{empheq}
+\usepackage{tikz-cd}
+
+\newcommand{\N}{\ensuremath{\mathbb{N}}}
+\newcommand{\Z}{\ensuremath{\mathbb{Z}}}
+\newcommand{\R}{\ensuremath{\mathbb{R}}}
+\newcommand{\Q}{\ensuremath{\mathbb{Q}}}
+\newcommand{\C}{\ensuremath{\mathbb{C}}}
+\newcommand{\imp}{\ensuremath{\Rightarrow}}
+\newcommand{\ip}{\ensuremath{\mathfrak{p}}}
+\newcommand{\iq}{\ensuremath{\mathfrak{q}}}
+\newcommand{\im}{\ensuremath{\mathfrak{m}}}
+\newcommand{\ia}{\ensuremath{\mathfrak{a}}}
+\newcommand{\ib}{\ensuremath{\mathfrak{b}}}
+\newcommand{\Spec}{\ensuremath{\mathrm{Spec}}}
+\newcommand{\ima}{\ensuremath{\mathrm{im}}}
+\newcommand{\locO}{\ensuremath{\mathcal{O}}}
+\newcommand{\spe}{\ensuremath{\mathrm{Sp\acute{e}}}}
+\newcommand{\Hom}{\ensuremath{\mathrm{Hom}}}
+\newcommand{\Proj}{\ensuremath{\mathrm{Proj}}}
+\newcommand{\Gal}{\ensuremath{\mathrm{Gal}}}
+\newcommand{\Cat}{\ensuremath{\boldsymbol{C}}}
+
+
+\newcommand*\closure[1]{\overline{#1}}
+
+\newtheorem{ex}{Exercise}[section]
+\theoremstyle{definition}
+\newtheorem*{sol}{Solution}
+
+\DeclareFontFamily{U}{BOONDOX-calo}{\skewchar\font=45 }
+\DeclareFontShape{U}{BOONDOX-calo}{m}{n}{
+  <-> s*[1.00] BOONDOX-r-calo}{}
+\DeclareFontShape{U}{BOONDOX-calo}{b}{n}{
+  <-> s*[1.00] BOONDOX-b-calo}{}
+\DeclareMathAlphabet{\mathcalboondox}{U}{BOONDOX-calo}{m}{n}
+\SetMathAlphabet{\mathcalboondox}{bold}{U}{BOONDOX-calo}{b}{n}
+\DeclareMathAlphabet{\mathbcalboondox}{U}{BOONDOX-calo}{b}{n}
+
+\newcommand{\sF}{\ensuremath{\mathcalboondox{F}}}
+\newcommand{\sG}{\ensuremath{\mathcalboondox{G}}}
+\newcommand{\sA}{\ensuremath{\mathcalboondox{A}}}
+\newcommand{\sH}{\ensuremath{\mathcalboondox{H}}}
+\newcommand{\sI}{\ensuremath{\mathcalboondox{I}}}
+
+\usepackage{geometry}
+ \geometry{
+ a4paper,
+ total={170mm,257mm},
+ left=20mm,
+ top=20mm,
+ }
+
+
+
+\begin{document}
+
+\title{Exercises Galois Theory for Schemes}
+\author{Oriol Velasco Falguera}
+\maketitle
+
+\input{section2.tex}
+\newpage
+\input{section3.tex}
+
+
+
+\end{document}

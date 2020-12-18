@@ -1,0 +1,172 @@
+\section{Galois categories}
+
+\begin{ex}
+	A directed graph $D$ consists of a set $V = V_D$ of vertices, a set $E = E_D$ of edges, a source map $s = s_D : E \to V$ and a target map $t = t_D: E \to V$; each $e \in E$ is to be thought as an arrow from $s(e)$ to $t(e)$. Let $D$ be a directed graph and $\Cat$ a category. A $D$-diagram in $\Cat$ is a map that assigns to each $v \in V$ an object $X_v$ of $\Cat$ and to each $e \in E$ a morphism $f_e$ from $X_{s(e)}$ to $X_{t(e)}$ in $\Cat$. A morphism from a $D$-diagram $((X_v)_{v \in V}, (f_e)_{e \in E})$ to a $D$-diagram $((Y_v)_{v \in V}, (g_e)_{e \in E})$ is a collection of morphisms $(h_v: X_v \to Y_v)_{v \in V}$ in $\Cat$ such that $h_{t(e)}f_e = g_e h_{s(e)}$ for all $e \in E$.
+	\begin{enumerate}[label=\alph*)]
+		\item Show that the $D$-diagrams in $\Cat$ form a category. We denote this category by $\Cat^D$.
+
+		\item Show that there exists a functor $\Gamma: \Cat \to \Cat^D$ mapping an object $X$ to the constant $D$-diagram with $X_v = X$ for all $v \in V$ and $f_e = \text{id}_X$ for all $e \in E$, and mapping a morphism $h: X \to Y$ to the morphism $(h_v)_{v \in V}$ with all $h_v = h$.
+
+		\item A left limit of a $D$-diagram $A$ in $\Cat$ is an object $\varprojlim A$ of $\Cat$ such that
+		\[
+			\Hom_{\Cat}(-, \varinjlim A) \cong \Hom_{\Cat^D}(\Gamma(-), A)
+		\]
+		as functors on $\Cat$. Prove that $\varprojlim A$ is unique up to isomorphism if it exists, and that the notion of left limit generalizes that of a projective limit.
+
+		\item Show that $\Cat$ admits left limits of all $D$-diagrams in $\Cat$ is and only if the functor $\Gamma: \Cat \to \Cat^D$ has a right adjoint $\varprojlim: \Cat^D \to \Cat$, i.e.
+		\[
+			\Hom_{\Cat}(-, \varprojlim -) \cong \Hom_{\Cat^D}(\Gamma(-),-)
+		\]
+
+		If this right adjoint exists, we say that $\Cat$ admits left limits over $D$.
+
+		\item A right limit of a $D$-diagram $A$ in $\Cat$ is an object $\varinjlim A$ of $\Cat$ such that 
+		\[
+			\Hom_{\Cat} (\varinjlim A, -) \cong \Hom_{\Cat^D}(A, \Gamma(-))
+		\]
+
+		Formulate and prove the analogues of the assertions in (c) and (d). If $\Gamma$ has a left adjoint $\varinjlim: \Cat^D \to \Cat$ we say that $\Cat$ admits right limits over $D$.
+	\end{enumerate}
+\end{ex}
+
+\begin{sol}
+	\begin{enumerate}[label=\alph*)]
+		\item Note that the statement of the problem already defines a set of objects of $\Cat^D$ and a set of morphisms $\Hom_{\Cat^D}((X_v), (f_e), ((Y_v), g_e))$. Given $(\phi_v) \in \Hom_{\Cat^D}((X_v), (f_e), ((Y_v), g_e))$ and $(\psi_v) \in \Hom_{\Cat^D}((Y_v), (g_e), ((Z_v), h_e))$ we have a composition $(\psi_v \circ \phi_v)$ defined by the composition of $\Cat$ at each $v \in V$. We just have to check that it is indeed an element of $\Hom_{\Cat^D}((X_v), (f_e), ((Z_v), h_e))$. Indeed, we have 
+		\[
+			(\psi \circ \phi)_{t(e)} f_e = \psi_{t(e)} \phi_{t(e)} f_e = \psi_{t(e)} g_e \phi_{s(e)} = h_e \psi_{s(e)} \phi_{s(e)} = h_e (\psi \circ \phi)_{s(e)}
+		\]
+
+		It is clear that for every $D$-diagram $((X_v), (f_e))$, the set of morphisms $\Hom_{\Cat^D}((X_v), (f_e), ((X_v), f_e))$ has an identity map $\text{id}_{((X_v), (f_e))}$ which is the morphism $(h_v)$ defined by $(h_v = \text{id}_{X_v})$. The composition of morphisms of $\Cat^D$ is associative because the composition of morphisms of $\Cat$ is. So $\Cat^D$ satisfies the definition of a category.
+
+		\item The statement already defines how the functor acts on objects and morphisms. We only have to check that the 2 properties of functors are satisfied: The identity must be mapped to the identity and the composition to the composition. But this is straightforward because $\Gamma(\text{id}_{X}) = (\text{id}_{v})$ which is the identity over $\Gamma(X)$, and given morphisms $g: X \to Y$, $h: Y \to Z$, $\Gamma(h \circ g) = ((h \circ g)_v) = (h_v \circ g_v) = (h_v) \circ (g_v) = \Gamma(h) \circ \Gamma(g)$.
+
+		\item Suppose that we have $\varprojlim_1 A$ and $\varprojlim_2 A$ objects of $\Cat$ that satisfy this property. Let $\theta^1$ be the isomorphism of functors $\Hom_{\Cat}(-, \varinjlim_1 A) \cong \Hom_{\Cat^D}(\Gamma(-), A)$ and $\theta^2$ be the isomorphism of functors $\Hom_{\Cat}(-, \varinjlim_2 A) \cong \Hom_{\Cat^D}(\Gamma(-), A)$.
+
+		The isomorphism of functors means that for every elements $X, Y \in \Cat$ and every morphism $f: X \to Y$ we have isomorphisms $\theta^1_X$, $\theta^1_Y$ that make the following diagram commutative:
+		\[
+			\begin{tikzcd}
+				\Hom_{\Cat}(X, \varprojlim_1 A) \arrow[r, "\theta^1_{X}", leftrightarrow] 
+				  & \Hom_{\Cat^D} (\Gamma(X), A) \\
+				\Hom_{\Cat}(Y, \varprojlim_1 A) \arrow[r, "\theta^1_{Y}", leftrightarrow] \arrow[u, "\Hom_{\Cat} \left ( f \right )"]
+				  & \Hom_{\Cat^D} (\Gamma(Y), A) \arrow[u, "\Hom_{\Cat^D} \left ( \Gamma \left (f \right ) \right )"]
+			\end{tikzcd}
+		\]
+
+		And the same holds for $\theta^2$. So in fact we have the following commutative diagram:
+
+		\[
+			\begin{tikzcd}
+				\Hom_{\Cat}(X, \varprojlim_1 A) \arrow[r, "\theta^1_{X}", leftrightarrow] 
+				  & \Hom_{\Cat^D} (\Gamma(X), A) \arrow[r, "\left (\theta^2_{X} \right )^{-1}", leftrightarrow] 
+				  & \Hom_{\Cat}(X, \varprojlim_2 A) \\
+				\Hom_{\Cat}(Y, \varprojlim_1 A) \arrow[r, "\theta^1_{Y}", leftrightarrow] \arrow[u, "\Hom_{\Cat} \left ( f \right )"]
+				  & \Hom_{\Cat^D} (\Gamma(Y), A) \arrow[u, "\Hom_{\Cat^D} \left ( \Gamma \left (f \right ) \right )"] \arrow[r, "\left (\theta^2_{Y} \right )^{-1}", leftrightarrow]
+				  & \Hom_{\Cat}(Y, \varprojlim_2 A) \arrow[u, "\Hom_{\Cat} \left ( f \right )"]
+			\end{tikzcd}
+		\] 
+
+		Now take $X = \varprojlim_1 A$ and $Y = \varprojlim_2 A$. Consider the morphism $f := ((\theta^2_{\varprojlim_1 A})^{-1} \circ \theta^1_{\varprojlim_2 A})(\text{id}_{\varprojlim_1 A}) \in \Hom_{\Cat}(\varprojlim_1 A, \varprojlim_2 A)$. We will show that this is in fact an isomorphism. For this morphism $f$, we have the diagram
+		\[
+			\begin{tikzcd}
+				\Hom_{\Cat}(\varprojlim_1 A, \varprojlim_1 A) \arrow[r, "\theta^1_{\varprojlim_1 A}", leftrightarrow] 
+				  & \Hom_{\Cat^D} (\Gamma(\varprojlim_1 A), A) \arrow[r, "\left (\theta^2_{\varprojlim_1 A} \right )^{-1}", leftrightarrow] 
+				  & \Hom_{\Cat}(\varprojlim_1 A, \varprojlim_2 A) \\
+				\Hom_{\Cat}(\varprojlim_2 A, \varprojlim_1 A) \arrow[r, "\theta^1_{\varprojlim_2 A}", leftrightarrow] \arrow[u, "\Hom_{\Cat} \left ( f \right )"]
+				  & \Hom_{\Cat^D} (\Gamma(Y), A) \arrow[u, "\Hom_{\Cat^D} \left ( \Gamma \left (f \right ) \right )"] \arrow[r, "\left (\theta^2_{\varprojlim_2 A} \right )^{-1}", leftrightarrow]
+				  & \Hom_{\Cat}(\varprojlim_2 A, \varprojlim_2 A) \arrow[u, "\Hom_{\Cat} \left ( f \right )"]
+			\end{tikzcd}
+		\] 
+
+		Now let's follow the two paths that can follow the morphism $\text{id}_{\varprojlim_2 A} \in \Hom_{\Cat}(\varprojlim_2 A,\varprojlim_2 A)$ to $\Hom(\varprojlim_1 A,\varprojlim_1 A)$. Going first up an then left, we have the identity on $\varprojlim_1 A$ (because of the definition of $f$). If we go first left and then up, we have $((\theta^1_{\varprojlim_1 A})^{-1} \circ \theta^2_{\varprojlim_2 A})(\text{id}_{\varprojlim_2 A}) \circ f$, the two paths must agree as the diagram commutes, so we have proven that $g \circ f = \text{id}_{\varprojlim_1 A}$, for $g$ being defined as $g := ((\theta^1_{\varprojlim_1 A})^{-1} \circ \theta^2_{\varprojlim_2 A})(\text{id}_{\varprojlim_2 A}) \in \Hom_{\Cat}(\varprojlim_2 A, \varprojlim_1 A)$. The symmetric calculation exchanging the roles of $f$ and $g$ proves that $f \circ g$ is also the identity. On conclusion, $f$ is an invertible morphism and so $\varprojlim_1 A \cong \varprojlim_2 A$ as we wanted.
+
+		Now we want to prove that the notion of left limit generalizes that of projective limit. To do that, we will use the characterization of projective limit of exercise 1.8: $\forall T$ and morphisms $g_j: T \to S_j$ such that $f_{ij} g_i = g_j$, $\exists! g: T \to \varprojlim S_i$ with $g_j = f_j g$. If we turn the partially ordered set into a directed graph by putting $V = I$ and $E = \{(i,j), \text{ such that } i,j \in I, i \geq j\}$, $s:E \to V, \, e = (i,j) \mapsto i$ and $t: E \to V, \, e= (i,j) \mapsto J$. Then we build a $D$-diagram $A$ by $V \ni i \mapsto S_i$ and $E \ni (i,j) \mapsto f_{ij}$. In that language the above characterization of projective limits implies that $\forall T$ there is a bijective correspondence between $\Hom(\Gamma(T), A)$ and $\Hom(T, \varprojlim S_i)$, which means that $\varprojlim S_i$ is in fact the left limit of the $D$-diagram $A$.
+
+		\item It is clear that, if $\Gamma$ has a right adjoint $\varprojlim -$, then for every $D$-diagram $A$, $\varprojlim A$ satisfies $\Hom_{\Cat}(-, \varprojlim A) \cong \Hom_{\Cat^D}(\Gamma(-), A)$, so it is a left limit of $A$, and in consequence, every $D$-diagram admits left limit.
+
+		Reciprocally, we have to show that the assignation $A \mapsto \varprojlim A$ is functorial. For that we have to define, for each $A, B$ $D$-diagrams, and every morphism of $D$ diagrams $f: A \to B$ a map $\varprojlim f: \varprojlim A \to \varprojlim B$ that preserves identities and composition. Let's define $\varprojlim f:= (\theta^B_{\varprojlim A})^{-1} (f \circ \theta_{\varprojlim A}^A(\text{id}_{\varprojlim A}))$. (here $\theta^A$ denotes the isomorphism of functors of c for the $D$-diagram A). Note that if $A = B$ and $f = \text{id}_A$ then $\varprojlim f = \text{id}_{\varprojlim A}$. Now let $A, B, C$ be 3 $D$-diagrams and $f: A \to B$, $g: B \to C$, $h = g \circ f: A \to C$. By definition of the functor $\varprojlim -$, we have that 
+		\begin{align*}
+			\theta^B_{\varprojlim A}(\varprojlim f) =  f \circ \theta_{\varprojlim A}^A(\text{id}_{\varprojlim A}) \\
+			\theta^C_{\varprojlim B}(\varprojlim g) =  g \circ \theta_{\varprojlim B}^B(\text{id}_{\varprojlim A}) \\
+			\theta^C_{\varprojlim A}(\varprojlim h) =  g \circ f \circ \theta_{\varprojlim A}^A(\text{id}_{\varprojlim A}) 
+		\end{align*}
+
+		We have the following commutative diagrams due to the isomorphisms between the functors $\Hom$ in (c).
+
+		\[
+			\begin{tikzcd}
+				\Hom_{\Cat}(\varprojlim B, \varprojlim B) \arrow[r, "\theta^B_{\varprojlim B}", leftrightarrow] \arrow[d, "- \circ \varprojlim f"]
+				  & \Hom_{\Cat^D} (\Gamma(\varprojlim B), B) \arrow[d, "- \circ \Gamma \left( \varprojlim f \right )"]\\
+				\Hom_{\Cat}(\varprojlim A, \varprojlim B) \arrow[r, "\theta^B_{\varprojlim A}", leftrightarrow] 
+				  & \Hom_{\Cat^D} (\Gamma(\varprojlim A), B) 
+			\end{tikzcd}
+		\]
+
+
+		\[
+			\begin{tikzcd}
+				\Hom_{\Cat}(\varprojlim B, \varprojlim C) \arrow[r, "\theta^C_{\varprojlim B}", leftrightarrow] \arrow[d, "- \circ \varprojlim f"]
+				  & \Hom_{\Cat^D} (\Gamma(\varprojlim B), C) \arrow[d, "- \circ \Gamma \left( \varprojlim f \right )"]\\
+				\Hom_{\Cat}(\varprojlim A, \varprojlim C) \arrow[r, "\theta^C_{\varprojlim A}", leftrightarrow] 
+				  & \Hom_{\Cat^D} (\Gamma(\varprojlim A), C) 
+			\end{tikzcd}
+		\]
+
+		Now following the first diagram from top-left to bottom-right, starting with the application $\text{id}_{\varprojlim B}$ we get the following identity:
+		\[
+			\theta^B_{\varprojlim A}(\varprojlim f) = \theta^B_{\varprojlim_B}(\text{id}_{\varprojlim B}) \circ \Gamma(\varprojlim f)
+		\] 
+
+		Now composing with $g$ on both sides we get
+		\[
+			g \circ \theta^B_{\varprojlim A}(\varprojlim f) = g \circ \theta^B_{\varprojlim_B}(\text{id}_{\varprojlim B}) \circ \Gamma(\varprojlim f)
+		\] 
+
+		Now using the definitions, we have that $g \circ \theta^B_{\varprojlim A}(\varprojlim f) = \theta^C_{\varprojlim A}(\varprojlim h)$ and $\theta^C_{\varprojlim B}(\varprojlim g) =  g \circ \theta_{\varprojlim B}^B(\text{id}_{\varprojlim A})$. Substituting into our equation, we have 
+		\[
+			\theta^C_{\varprojlim A}(\varprojlim h) = \theta^C_{\varprojlim B}(\varprojlim g) \circ \Gamma(\varprojlim f)
+		\]
+
+		Now let's follow the second diagram from the top-left to the bottom right starting with the morphism $\varprojlim g \in \Hom_{\Cat}(\varprojlim B, \varprojlim C)$. We obtain that $\theta^C_{\varprojlim_A}(\varprojlim g \circ \varprojlim f) = \theta^C_{\varprojlim B}(\varprojlim g) \circ \Gamma(\varprojlim f)$. So substituting this into our previous equation we finally have $\theta^C_{\varprojlim A}(\varprojlim h) = \theta^C_{\varprojlim_A}(\varprojlim g \circ \varprojlim f)$ and so
+		\[
+			\varprojlim h = \varprojlim g \circ \varprojlim f
+		\]
+
+		And so we have defined a functor $\varprojlim -$ that is right adjoint to $\Gamma$. 
+		
+		\item A symmetric argument holds and allows us to prove that right limits are unique if they exist, and that $\Cat$ admits right limits over every $D$-diagram if and only if $\Gamma(-)$ has a left adjoint $\varinjlim -$.
+
+	\end{enumerate}
+\end{sol}
+
+\begin{ex}
+	Let $\Cat$ be a category. 
+	\begin{enumerate}[label=\alph*)]
+		\item Prove that $\Cat$ admits left limits over the empty directed graph (with $V = E = \varnothing$) if and only if $\Cat$ has a terminal object.
+
+		\item Prove that $\Cat$ admits left limits over the directed graph () if and only if the fibred product of any two objects over a third one exists in $\Cat$.
+	\end{enumerate}
+\end{ex}
+
+\begin{sol}
+	\begin{enumerate}[label=\alph*)]
+		\item There is only one possible $D$-diagram over the empty directed graph, which is the empty $D$-diagram $\varnothing$. Then, if $\Cat$ admits left limits over the empty directed graph, then for every $X \in \Cat$ there is only one possible morphism of $D$-diagrams $\varnothing: \Gamma(X) \to \varnothing$, which by the isomorphism of $\Hom$ functors implies that there is only one morphism $X \to \varprojlim \varnothing$. Then, the object $\varprojlim \varnothing$ satisfies the definition of terminal object in $\Cat$. Reciprocally, if $\Cat$ has a terminal object, 0, that means that for every $X \in \Cat \exists !$ element in $\Hom_{\Cat}(X, 0)$. Then, we have a bijective map $\Hom_{\Cat}(X,0) \cong \Hom_{\Cat^D}(\Gamma(X), \varnothing)$ that maps the only element in $\Hom_{\Cat}(X,0)$ to the empty morphism (the only element in $\Hom_{\Cat^D}(\Gamma(X), \varnothing)$), so $0 = \varprojlim \varnothing$ and so the category admits left limits over the empty directed graph. 
+
+		\item If $\Cat$ admits left limits over that directed graph, it means that for every $D$-diagram $A$, composed by $X,Y,S \in \Cat$ and $a: X \to S$, $b: Y \to S$ morphisms, $\exists$ an object $\varprojlim A$ such that $\Hom_{\Cat}(Z, \varprojlim A) \cong \Hom_{\Cat^D}(\Gamma(Z), A)$, for every $Z \in \Cat$.
+
+		In particular, let $(h)_A \in \Hom_{\Cat^D}(\Gamma(Z), A)$, which means that $(h)_A$ is has the following elements: Morphisms $h_X: Z \to X$, $h_Y: Z \to Y$ and $h_S: Z \to S$ satisfying $h_s = ah_X = bh_Y$. Let $h = \theta_Z((h)_A)$, where $\theta$ is the isomorphism of functors. As usual, we have the following commutative diagram:
+
+		\[
+			\begin{tikzcd}
+				\Hom_{\Cat}(\varprojlim A, \varprojlim A) \arrow[r, "\theta_{\varprojlim A}", leftrightarrow] \arrow[d, "- \circ h"]
+				  & \Hom_{\Cat^D} (\Gamma(\varprojlim A), A) \arrow[d, "- \circ \Gamma \left( h \right )"]\\
+				\Hom_{\Cat}(Z, \varprojlim A) \arrow[r, "\theta_{\varprojlim A}", leftrightarrow] 
+				  & \Hom_{\Cat^D} (\Gamma(Z), A) 
+			\end{tikzcd}
+		\]
+
+		Taking the identity on the top-left and following the diagram in both directions, we have the following equality: $\theta_{\varprojlim A} (\text{id}_{\varprojlim A} \circ \Gamma(h) = \theta_{Z}(h) = (h)_A$. That means that $\exists p_X, p_Y = \theta_{\varprojlim A} (\text{id}_{\varprojlim A})_{X,Y}$ such that $h_{X,Y} = p_{X,Y} \circ h$, for $h$ a uniquely determined morphism such. This is exactly the definition of fibred product of $X$ and $Y$ over $S$.
+
+		Reciprocally, if $\Cat$ admits a fibred product, given a $D$-diagram $A$ (defined by $X,Y,S,a,b$ with the same notation we have been using), an object $Z$ and a morphism of $D$-diagrams $\Gamma(Z) \to A$, that is, applications $h_X: Z \to X$, $h_Y: Z \to Y$ satisfying $ah_X = bh_y: Z \to S$, consider the fibred product $X \times_S Y$. That object satisfies that there is a unique morphism $h: Z \to X \times_S Y$ such that the morphisms $h_{X,Y}$ factor through $h$. In particular, the existence and uniqueness of this $h$ allows us to define for every $Z$ a bijection $\Hom_{\Cat}(Z, X \times_S Y) \cong \Hom_{Cat^D}(\Gamma(Z), A)$, so $X \times_S Y$ is in fact the left limit of the $D$-diagram $A$. On conclusion, $\Cat$ admits left limits over $D$.
+	\end{enumerate}
+\end{sol}
+
